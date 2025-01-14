@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('musicID'); // Foreign key
             $table->unsignedInteger('userID')->nullable(); // Foreign key
             $table->unsignedInteger('artistID')->nullable(); // Foreign key
-            $table->foreign('musicID')->references('musicID')->on('music_upload')->onDelete('cascade');
+            $table->foreign('musicID')->references('musicID')->on('music_uploads')->onDelete('cascade');
             $table->foreign('userID')->references('userID')->on('user')->onDelete('cascade');
             $table->foreign('artistID')->references('artistID')->on('artist')->onDelete('cascade');
             $table->timestamps();
