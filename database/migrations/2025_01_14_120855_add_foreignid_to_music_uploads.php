@@ -15,9 +15,9 @@ return new class extends Migration
             $table->unsignedInteger('artistID'); // Foreign key
             $table->unsignedInteger('playlistID')->nullable(); // Foreign key
             $table->unsignedInteger('albumID')->nullable(); // Foreign key
-            $table->foreign('artistID')->references('artistID')->on('artists')->onDelete('cascade');
-            $table->foreign('playlistID')->references('playlistID')->on('playlists')->onDelete('cascade');
-            $table->foreign('albumID')->references('albumID')->on('albums')->onDelete('cascade');
+            $table->foreign('artistID')->references('artistID')->on('artist')->onDelete('cascade');
+            $table->foreign('playlistID')->references('playlistID')->on('playlist')->onDelete('cascade');
+            $table->foreign('albumID')->references('albumID')->on('album')->onDelete('cascade');
         });
 
     }
@@ -25,10 +25,14 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void{
         Schema::table('music_uploads', function (Blueprint $table) {
-            $table->dropForeign(['artistID', 'playlistID', 'albumID']);
+            // Remove foreign key constraints
+            $table->dropForeign(['artistID']);
+            $table->dropForeign(['playlistID']);
+            $table->dropForeign(['albumID']);
+
+            // Drop columns
             $table->dropColumn(['artistID', 'playlistID', 'albumID']);
         });
     }
